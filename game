@@ -1,0 +1,50 @@
+:: Process Name
+(if: $playerName is "Sir Honkers" or $playerName is "Honkaloth" or $playerName is "Honkalot")[
+    The geese deliver a specific message, and the story immediately goes to the "Rickroll" passage.
+    (goto: "Rickroll")
+](else-if: $playerName is "Lord Beackerton Honkcrestfeatherquil" or $playerName is "Lord Honkington Featherdhonker" or $playerName is "Sir Goosealot")[
+    The geese explain that they need to verify the player's identity through a quiz. The story goes to the "Quiz Start - Trusted humans" passage.
+    (goto: "Quiz Start - Trusted humans")
+](else-if: $playerName is "Lord Honk" or $playerName is "Lord feathers")[
+    The geese state that they're starting a quiz to determine if the player is a human or a goose. The story proceeds to the "Quiz Start - Other Geese" passage.
+    (goto: "Quiz Start - Other Geese")
+](else:)[
+    Error in processing name.
+    [[Start Over|Start]]
+] :: Rickroll
+(set: _img to "")
+
+<!-- Debugging Output - Shows the value of $playerName and the path assigned to _img -->
+(print: "DEBUG: Player name entering Rickroll: " + $playerName + "<br>") 
+
+<!-- Conditional logic to set the image path based on $playerName -->
+(if: $playerName is "Sir Honkers")[
+  (set: _img to "GooseGame/SirHonkers.png")
+](else-if: $playerName is "Honkaloth")[
+  (set: _img to "GooseGame/Honkaloth.png")
+](else-if: $playerName is "Honkalot")[
+  (set: _img to "GooseGame/Honkalot.png")
+](else:)[
+  (set: _img to "GooseGame/DefaultGoose.png")  <!-- Make sure you have this image! -->
+  (print: "DEBUG: Player name '" + $playerName + "' not matched. Using default image.<br>") 
+]
+
+(print: "DEBUG: Final image path used: " + _img + "<br>") 
+
+<!-- Image Display -->
+<div id="character-image" style="text-align:center; margin-bottom:20px;">
+  (print: '<img src="' + _img + '" style="transform: rotate(-5deg); border: 2px solid black; width: 300px;" alt="Character Image">')
+  <p><em>I am the only goose who has that name.<br>You are a human and not one of the three we trust.</em></p>
+</div>
+
+<!-- Audio Player (replaces the old video iframe) -->
+<div id="background-audio-player" style="text-align:center;">
+  <audio controls loop autoplay muted>
+    <source src="audio/background_music.mp3" type="audio/mpeg">
+    <source src="audio/background_music.ogg" type="audio/ogg"> <!-- Good practice for wider browser support -->
+    Your browser does not support the audio element.
+  </audio>
+  <p>Background music is playing, currently muted. Click the speaker icon to unmute.</p>
+</div>
+
+[[Continue the Story]]
